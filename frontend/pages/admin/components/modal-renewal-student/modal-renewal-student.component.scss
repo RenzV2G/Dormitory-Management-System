@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200..900&display=swap');
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); 
+  backdrop-filter: blur(8px); /* Apply blur to the background */
+  z-index: 1000;
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: row;
+  position: fixed; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  width: 80%;
+  max-width: 1300px;  
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  overflow: hidden; 
+  z-index: 1001; 
+}
+
+.modal-left {
+  flex: 1;
+  max-height: 425px; 
+  overflow-y: scroll;  
+  padding-left: 15px;
+  padding-right: 15px; 
+  margin-right: 20px; 
+  scrollbar-width: none; /* For Firefox */
+  scrollbar-color: gray;
+  border: 2px solid maroon;
+  border-radius: 5px;
+  height: 420px;
+
+  p{
+    margin-bottom: 5px;
+    padding-left: 10px;
+  }
+
+  img {
+    width: 12rem;
+    height: 12rem;
+    border-radius: 2%;
+    object-fit: cover;
+    border: 3px solid #000000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: block; 
+    margin: 0 auto; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+}
+
+.modal-left::-webkit-scrollbar {
+  display: none; /* For Webkit-based browsers (Chrome, Safari, etc.) */
+}
+
+.modal-right {
+  flex: 1;
+  max-width: 40%;   
+}
+
+.section-header {
+  background-color: #800000;
+  color: #fff;
+  padding: 8px 12px;
+  font-family: "Oswald", serif;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.section-header-sched {
+  background-color: #800000;
+  color: #fff;
+  padding: 8px 12px;
+  font-family: "Oswald", serif;
+  font-size: 20px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.section-header-checklist{
+  background-color: #800000;
+  color: #fff;
+  padding: 8px 12px;
+  font-family: "Oswald", serif;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); // Dynamic & responsive
+  gap: 15px; // Space between items
+  align-items: start;
+  margin-bottom: 10px;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 10px; // Space between checkbox & text
+  min-width: 200px; // Prevents items from getting too small
+  white-space: normal; 
+
+  .requirements {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0; // Prevents resizing when text is long
+    cursor: pointer;
+  }
+
+  p{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    flex-grow: 1; // Allows text to take available space
+    word-wrap: break-word
+  }
+
+}
+
+.sched-appointment, .sched-deadline{
+  display: flex;
+  justify-content: center; 
+  gap: 10px; 
+}
+
+.schedule-group input[type="date"],
+.schedule-group input[type="time"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.save-btn{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-family: "Source Sans 3", serif;
+  font-size: 18px;
+  background-color: #FDBE00;
+  transition: 0.3s ease;
+
+  &:hover {
+    background-color: #5c5c5c;
+  }
+
+  &:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+  }
+
+}
+
+.action-buttons button {
+  width: 100%;
+  padding: 10px 35px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-family: "Source Sans 3", serif;
+  font-size: 18px;
+}
+
+.btn-approve {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-approve:disabled {
+  background-color: #B0B0B0; 
+  color: #666666; 
+  cursor: not-allowed; 
+}
+
+.btn-reject {
+  background-color: #dc3545;
+  color: white;
+}
+
+.left-buttons{
+  display: flex;
+  justify-content: center; 
+
+  button{
+    margin-bottom: 10px;
+  }
+}
+
+.export-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 42%;
+  padding: 10px 35px;
+  font-family: "Source Sans 3", serif;
+  background-color: maroon;
+  font-size: 18px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 300px;
+}
+
+.export-btn:hover {
+  background-color: gray;
+}
+
+.close-btn {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  padding: 10px 35px;
+  font-family: "Source Sans 3", serif;
+  background-color: #fff;
+  font-size: 18px;
+  color: maroon;
+  border: 2px solid maroon;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background-color: gray;
+}
+
+

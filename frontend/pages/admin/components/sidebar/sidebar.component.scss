@@ -1,0 +1,96 @@
+.sidebar {
+  min-width: 15%;
+  min-height: 100%;
+  justify-content: space-between;
+  background-color: white;
+  color: black;
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  z-index: 1000;
+  overflow: hidden;
+  border-right: 1px solid #676363;
+  font-family: Oswald;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    font-size: 20px;
+
+    li {
+      margin: auto;
+      width: 100%;
+      border-bottom: 1px solid #676363;
+
+      .category {
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        border-bottom: 1px solid #676363;
+        cursor: pointer;
+        width: 100%; /* Ensure the .category spans the full width */
+
+        a {
+          flex-grow: 1; /* Ensure link takes up the remaining space */
+          color: black;
+          text-decoration: none;
+          padding: 15px;
+          display: block;
+        }
+
+        img {
+          margin-right: 10px;
+        }
+
+        /* Active state for the entire category */
+        &.active {
+          background-color: #660018; /* Highlight background */
+          
+          a {
+            color: white; /* Change text color */
+          }
+
+          img {
+            filter: brightness(0) invert(1); /* Highlight icon */
+          }
+        }
+
+        &:hover {
+          background-color: #660018; /* Hover effect for background */
+
+          a {
+            color: white;
+          }
+
+          img {
+            filter: brightness(0) invert(1); /* Hover icon effect */
+          }
+        }
+      }
+    }
+
+    ul {
+      list-style: none;
+      
+
+      &.collapsed {
+        display: none;
+      }
+
+      li {
+        a {
+          color: black;
+          text-decoration: none;
+          padding: 10px 0 10px 90px;
+          display: block;
+
+          &.active,
+          &:hover {
+            background-color: #660018;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}

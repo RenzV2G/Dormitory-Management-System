@@ -1,0 +1,100 @@
+.user-list {
+    padding: 50px 20px 0;
+  }
+  
+  .add-btn {
+    text-align: center;
+    font-family: Oswald;
+    font-size: 20px;
+    background-color: #660018;
+    font-size: 20px;
+    color: #fff;
+    margin: 0;
+    padding: 5px 25px;
+    width: fit-content;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .add-btn:hover {
+    background-color: #870022;
+  }
+
+.save-btn{
+    scale: 1.1;
+}
+
+.save-btn:hover{
+    scale: 1.3;
+}
+
+.applicant-tables {
+    margin-top: 20px;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 20px;
+}
+
+.table-header h2 {
+    margin: 0;
+    font-family: Oswald;
+    font-size: 30px;
+    color: #660018;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th{
+    border: 2px solid white;
+    padding: 8px;
+    text-align: left;
+    font-family: Source Sans 3;
+    font-weight: 500;
+    background-color: #660018;
+    color: #fff;
+}
+
+td {
+    background-color: #D9D9D9;
+    color: black;
+    font-family: Source Sans 3;
+    padding: 5px;
+    font-weight: 500;
+    border: 2px solid white;
+    a{
+    text-align: center;
+    color: #168BE1;
+    &:hover{
+    color: #168BE1;
+    text-decoration: underline;
+    }
+}
+}
+
+.actions-btns{
+    text-align: center;
+    button{
+        border: none; 
+        background-color: none;
+        background: none;
+        transition: 0.3s ease-in-out;
+        &:hover{
+            scale: 1.2;
+        }
+    }
+}
+
+input, select{
+    width: 100%;
+    border: rgba(128, 128, 128, 0.5) solid 1px;
+}

@@ -1,0 +1,73 @@
+
+<div class="search-container">
+  <h2>
+    Student List
+  </h2>
+  <div class="search">
+    <p>Search</p>
+    <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        (input)="filterStudents()"
+        placeholder="Search by name, building, or student no."
+        class="search-bar"/>
+  </div>
+
+  <div class="filter-buttons">
+    <button
+      class="gender-btn"
+      (click)="toggleGenderFilter('Male')"
+      [class.active]="activeGenderFilter === 'Male'"
+    >
+      Male
+    </button>
+    <button
+      class="gender-btn"
+      (click)="toggleGenderFilter('Female')"
+      [class.active]="activeGenderFilter === 'Female'"
+    >
+      Female
+    </button>
+    <button
+      class="gender-btn"
+      (click)="clearGenderFilter()"
+      [class.active]="!activeGenderFilter"
+    >
+      All
+    </button>
+  </div>
+  
+
+
+</div>
+  <div  class="applicant-tables">
+    <table class="approved-students-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Student Name</th>
+          <th>Student No.</th>
+          <th>Dorm Building</th>
+          <th>Room-Bedletter</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of filteredStudents; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ student.name }}</td>
+          <td>{{ student.studentNo }}</td>
+          <td>{{ student.roomAssigned?.building }}</td>
+          <td>{{ student.roomAssigned?.roomNumber }} - {{ student.roomAssigned?.bedLetter }}</td>
+          <td class="td-view"><a (click)="openModal(student._id)">View</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <app-modal-approved-student
+  *ngIf="showModal"
+  [studentDetails]="selectedStudent"
+  (close)="closeModal()">
+  </app-modal-approved-student>
+  

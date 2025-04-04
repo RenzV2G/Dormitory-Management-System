@@ -1,0 +1,197 @@
+<!-- Overlay -->
+<div class="modal-overlay" (click)="closeModal()"></div>
+
+<!-- Modal Content -->
+<div class="modal-container">
+  <!-- Left Section: Personal Data -->
+  <div class="modal-left">
+    <img [src]="student.personalInfo?.profilePicture || '/assets/images/profile.svg'" alt="Student-profile" />
+    <p><strong>Student Name:</strong> {{ student.name }}</p>
+    <p><strong>Student Number:</strong> {{ student.studentNo }}</p>
+
+
+    <div class="section-header">Personal Data:</div>
+    <p><strong>Email:</strong> {{ student.email }}</p>
+    <p><strong>Course:</strong> {{ student.personalInfo?.course }}</p>
+    <p><strong>Year Level:</strong> {{ student.personalInfo?.yearLevel }}</p>
+    <p><strong>Sex:</strong> {{ student.personalInfo?.sex }}</p>
+    <p><strong>Date of Birth:</strong> {{ student.personalInfo?.dateOfBirth | date }}</p>
+    <p><strong>Age:</strong> {{ student.personalInfo?.age }}</p>
+    <p><strong>Religion:</strong> {{ student.personalInfo?.religion }}</p>
+    <p><strong>Nationality:</strong> {{ student.personalInfo?.nationality }}</p>
+    <p><strong>Civil Status:</strong> {{ student.personalInfo?.civilStatus }}</p>
+    <p><strong>Home Address:</strong> {{ student.personalInfo?.homeAddress?.houseNumber }}, {{
+      student.personalInfo?.homeAddress?.city }}, {{ student.personalInfo?.homeAddress?.province }}, {{
+      student.personalInfo?.homeAddress?.country }} (Zip: {{ student.personalInfo?.homeAddress?.zipCode }})</p>
+    <p><strong>Facebook Account:</strong> {{ student.personalInfo?.facebookAcct }}</p>
+    <p><strong>Tel. No.:</strong> {{ student.personalInfo?.telNo }}</p>
+  
+  
+    <div class="section-header">Father Details:</div>
+    <p><strong>Name:</strong> {{ student.familyBackground?.fatherDetails?.name }}</p>
+    <p><strong>Date of Birth:</strong> {{ student.familyBackground?.fatherDetails?.dateOfBirth | date }}</p>
+    <p><strong>Age:</strong> {{ student.familyBackground?.fatherDetails?.age }}</p>
+    <p><strong>Place of Birth:</strong> {{ student.familyBackground?.fatherDetails?.placeOfBirth }}</p>
+    <p><strong>Home Address:</strong> {{ student.familyBackground?.fatherDetails?.homeAddress?.houseNumber }}, {{
+      student.familyBackground?.fatherDetails?.homeAddress?.city }}, {{
+      student.familyBackground?.fatherDetails?.homeAddress?.province }}, {{
+      student.familyBackground?.fatherDetails?.homeAddress?.country }} (Zip: {{
+      student.familyBackground?.fatherDetails?.homeAddress?.zipCode }})</p>
+    <p><strong>Tel. No.:</strong> {{ student.familyBackground?.fatherDetails?.telNo }}</p>
+    <p><strong>Religion:</strong> {{ student.familyBackground?.fatherDetails?.religion }}</p>
+    <p><strong>Nationality:</strong> {{ student.familyBackground?.fatherDetails?.nationality }}</p>
+    <p><strong>Occupation:</strong> {{ student.familyBackground?.fatherDetails?.occupation }}</p>
+    <p><strong>Employer:</strong> {{ student.familyBackground?.fatherDetails?.nameOfEmployer }}</p>
+  
+  
+    <div class="section-header">Mother Details:</div>
+    <p><strong>Name:</strong> {{ student.familyBackground?.motherDetails?.name }}</p>
+    <p><strong>Date of Birth:</strong> {{ student.familyBackground?.motherDetails?.dateOfBirth | date }}</p>
+    <p><strong>Age:</strong> {{ student.familyBackground?.motherDetails?.age }}</p>
+    <p><strong>Place of Birth:</strong> {{ student.familyBackground?.motherDetails?.placeOfBirth }}</p>
+    <p><strong>Home Address:</strong> {{ student.familyBackground?.motherDetails?.homeAddress?.houseNumber }}, {{
+      student.familyBackground?.motherDetails?.homeAddress?.city }}, {{
+      student.familyBackground?.motherDetails?.homeAddress?.province }}, {{
+      student.familyBackground?.motherDetails?.homeAddress?.country }} (Zip: {{
+      student.familyBackground?.motherDetails?.homeAddress?.zipCode }})</p>
+    <p><strong>Tel. No.:</strong> {{ student.familyBackground?.motherDetails?.telNo }}</p>
+    <p><strong>Religion:</strong> {{ student.familyBackground?.motherDetails?.religion }}</p>
+    <p><strong>Nationality:</strong> {{ student.familyBackground?.motherDetails?.nationality }}</p>
+    <p><strong>Occupation:</strong> {{ student.familyBackground?.motherDetails?.occupation }}</p>
+    <p><strong>Employer:</strong> {{ student.familyBackground?.motherDetails?.nameOfEmployer }}</p>
+  
+  
+    <div class="section-header">Parent Status:</div>
+    <p><strong>Marital Status:</strong> {{ student.familyBackground?.parentStatus?.maritalStatus }}</p>
+    <p><strong>Parents' Marriage:</strong> {{ student.familyBackground?.parentStatus?.parentsMarriage ? 'Yes' : 'No' }}
+    </p>
+    <div *ngIf="student.familyBackground?.parentStatus?.guardianDetails">
+      <p><strong>Guardian's Name:</strong> {{ student.familyBackground?.parentStatus?.guardianDetails?.name }}</p>
+      <p><strong>Guardian's Occupation:</strong> {{ student.familyBackground?.parentStatus?.guardianDetails?.occupation }}
+      </p>
+      <p><strong>Guardian's Relation:</strong> {{ student.familyBackground?.parentStatus?.guardianDetails?.relation }}</p>
+    </div>
+    <p><strong>Language Spoken:</strong> {{ student.familyBackground?.parentStatus?.languageSpoken }}</p>
+    <p><strong>Number of Children:</strong> {{ student.familyBackground?.parentStatus?.noOfChildren }}</p>
+    <p><strong>Ordinal Position:</strong> {{ student.familyBackground?.parentStatus?.ordinalPosition }}</p>
+    <p><strong>Average Monthly Income:</strong> {{ student.familyBackground?.parentStatus?.AverageMonthlyIncome }}</p>
+  
+  
+    <div class="section-header">Number of Siblings:</div>
+    <div *ngFor="let sibling of student.familyBackground?.numberOfSiblings; let i = index">
+      <p><strong>Name:</strong> {{ sibling?.name }}</p>
+      <p><strong>Classification:</strong> {{ sibling?.classification }}</p>
+      <p><strong>Sex:</strong> {{ sibling?.sex }}</p>
+      <p><strong>Age:</strong> {{ sibling?.age }}</p>
+      <p><strong>Civil Status:</strong> {{ sibling?.civilStatus }}</p>
+      <p><strong>School/Occupation:</strong> {{ sibling?.schoolOccupation }}</p>
+      <p><strong>Grade/Company:</strong> {{ sibling?.gradeCompany }}</p>
+  
+      <hr *ngIf="i < student.familyBackground?.numberOfSiblings.length - 1" />
+    </div>
+  
+  
+    <!-- Health Condition -->
+    <div class="section-header">Health Condition:</div>
+    <p><strong>Weight:</strong> {{ student.healthCondition?.weight }} kg</p>
+    <p><strong>Height:</strong> {{ student.healthCondition?.height }} cm</p>
+    <p><strong>Glasses:</strong> {{ student.healthCondition?.glasses ? 'Yes' : 'No' }}</p>
+    <div *ngIf="student.healthCondition?.illnesses.length > 0">
+      <strong>Illnesses:</strong>
+      <ul>
+        <li *ngFor="let illness of student.healthCondition?.illnesses">
+          <p>{{ illness?.name }} (Age: {{ illness?.age }})</p>
+        </li>
+      </ul>
+    </div>
+    <p><strong>Comments:</strong> {{ student.healthCondition?.comments || 'No additional comments' }}</p>
+  
+    <hr />
+  
+    <!-- Hobbies -->
+    <div class="section-header">Hobbies:</div>
+    <ul>
+      <li *ngFor="let hobby of student.hobbies">
+        {{ hobby }}
+      </li>
+    </ul>
+  
+    <hr />
+  
+    <!-- Talents/Skills -->
+    <div class="section-header">Talents and Skills:</div>
+    <ul>
+      <li *ngFor="let talent of student.talentsSkills">
+        {{ talent }}
+      </li>
+    </ul>
+  
+    <hr />
+  
+    <!-- Leisure Time -->
+    <div class="section-header">Leisure Time Activities:</div>
+    <ul>
+      <li *ngFor="let activity of student.leisureTime">
+        {{ activity }}
+      </li>
+    </ul>
+
+    <div class="left-buttons">
+      <button class="export-btn" (click)="downloadExcel()"><i class="bi bi-file-earmark-arrow-down"></i>     Export</button>
+      <button class="close-btn" (click)="closeModal()">Close</button>
+    </div>
+  
+  </div>
+
+
+
+
+  <!-- Right Section: Schedule and Checklist -->
+  <div class="modal-right">
+    <div class="section-header-sched">Scheduled Interview</div>
+
+    <!-- Date and Time Picker -->
+    <div class="schedule-group">
+      
+      <label>Appointment Date</label>
+      <div class="sched-appointment">
+        <input type="date" [(ngModel)]="scheduledDate" />
+        <input type="time" [(ngModel)]="scheduledTime" />
+      </div>
+      
+      <label>Deadline Date</label>
+      <div class="sched-deadline">
+        <input type="date" [(ngModel)]="deadlineDate" />
+        <input type="time" [(ngModel)]="deadlineTime" />
+      </div>
+
+      <button class="save-btn" (click)="scheduleRenewalInterview()" [disabled]="isLoading"> {{ isLoading ? 'Scheduling...' : 'Save' }} </button>
+    </div>
+
+    <!-- Checklist -->
+    <div class="checklist">
+      <div class="section-header-checklist">List of Requirements:</div>
+      <div class="checklist-grid">
+        <div *ngFor="let item of checklistItems" class="checklist-item">
+          <input type="checkbox" class="requirements" [checked]="item.completed"
+            (change)="updateRenewalChecklist(item.item)" />
+          <p>{{ item.item }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button
+        class="btn-approve"
+        [disabled]="!isChecklistComplete()"
+        (click)="approveRenewalStudent()"
+      >
+        Approve
+      </button>
+      <button class="btn-reject" (click)="rejectRenewalStudent()">Reject</button>
+    </div>
+  </div>
+
+  
+</div>

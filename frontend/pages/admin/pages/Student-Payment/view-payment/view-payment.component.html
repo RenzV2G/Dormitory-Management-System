@@ -1,0 +1,87 @@
+<section style="padding: 0 40px;">
+  <div class="user-list">
+    <div class="table-header">
+      <h2>View Payment List</h2>
+    </div>
+  </div>
+<div >
+  
+  <!-- Search Bar & Export Button in the Same Row -->
+  <div class="search-export-container">
+    <div class="search-container">
+      <h4>Student </h4>
+      <div class="autocomplete-container search-bar" (click)="toggleDropdown()">
+        <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        (input)="filterStudents()"
+        (focus)="onFocus()"
+        placeholder="Search student by name or student number"
+        class="autocomplete-input"
+      />
+      <div
+        class="autocomplete-dropdown"
+        *ngIf="dropdownOpen && filteredStudents.length > 0"
+      >
+        <div
+          class="autocomplete-option"
+          *ngFor="let student of filteredStudents"
+          (click)="selectStudent(student)"
+        >
+          {{ student.name }} ({{ student.studentNo }})
+
+      </div>
+    </div>
+    
+    
+      
+      </div>
+    </div>
+    <button class="red-btn" (click)="exportToExcel()">Export</button>
+  </div>
+
+  <!-- Selected Student and Payments Table -->
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Transaction No</th>
+          <th>Student Name</th>
+          <th>Student No</th>
+          <th>Payment Date</th>
+          <th>Amount</th>
+          <th>Payment Method</th>
+          <th>Remarks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payment of payments">
+          <td>{{ payment.transactionNo }}</td>
+          <td>{{ payment.name }}</td>
+          <td>{{ payment.studentNo }}</td>
+          <td>{{ payment.paymentDate | date: 'shortDate' }}</td>
+          <td>₱{{ payment.amount | number:'1.2-2' }}</td>
+          <td>{{ payment.paymentBy }}</td>
+          <td>{{ payment.remarks }}</td>
+        </tr>
+        <tr *ngIf="payments.length === 0">
+          <td colspan="7" class="text-center">No payments available</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Total Payment Display -->
+  <div class="total-payment" *ngIf="payments.length > 0">
+    <h4>Total Payment:</h4>
+    <h3>₱{{ totalPayment | number:'1.2-2' }}</h3>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+    <p>Page {{ currentPage }} of {{ totalPages }}</p>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+</div>
+</section>

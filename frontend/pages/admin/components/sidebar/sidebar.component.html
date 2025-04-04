@@ -1,0 +1,56 @@
+<nav class="sidebar">
+  <ul>
+    <li>
+      <div class="category" routerLinkActive="active">
+        <img src="/assets/images/sidebar/dashboard-icon.svg">
+        <a routerLink="dashboard-home" routerLinkActive="active" (click)="closeAllMenus()">Dashboard</a>
+      </div>
+    </li>
+
+    <li>
+      <div class="category">
+        <img src="/assets/images/sidebar/student-icon.svg">
+        <a (click)="toggleMenu('student')">Student Management</a>
+      </div>
+      <ul [class.collapsed]="!isMenuExpanded('student')">
+        <li><a routerLink="student-admission" routerLinkActive="active">Admission</a></li>
+        <li><a routerLink="student-queue" routerLinkActive="active">Application Queue</a></li>
+        <li><a routerLink="student-list" routerLinkActive="active">Student List</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <div class="category">
+        <img src="/assets/images/sidebar/room-icon.svg">
+        <a (click)="toggleMenu('room')">Room Management</a>
+      </div>
+      <ul [class.collapsed]="!isMenuExpanded('room')">
+        <li><a routerLink="room-allocation" routerLinkActive="active">Room Allocation</a></li>
+        <li><a routerLink="room-list" routerLinkActive="active">Room List</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <div class="category">
+        <img src="/assets/images/sidebar/payment-icon.svg">
+        <a (click)="toggleMenu('payment')">Student Payment</a>
+      </div>
+      <ul [class.collapsed]="!isMenuExpanded('payment')">
+        <li><a routerLink="add-new-payment" routerLinkActive="active">Add new payment</a></li>
+        <li><a routerLink="view-payment-list" routerLinkActive="active">Payment list</a></li>
+        <!-- <li><a routerLink="summary-bills" routerLinkActive="active">Summary of Bills</a></li> -->
+      </ul>
+    </li>
+
+    <li *ngIf="adminRole === 'Admin'">
+      <div class="category">
+        <img src="/assets/images/sidebar/user-icon.svg">
+        <a (click)="toggleMenu('user')">User Management</a>
+      </div>
+      <ul [class.collapsed]="!isMenuExpanded('user')">
+        <li><a routerLink="add-new-user" routerLinkActive="active">Add New User</a></li>
+        <li><a routerLink="view-user-list" routerLinkActive="active">User List</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>

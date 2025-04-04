@@ -1,0 +1,57 @@
+<div class="user-list">
+  <!-- Heading and Add Button -->
+  <div class="table-header">
+    <h2>User List</h2>
+    <button class="add-btn" (click)="onAddUser()">Add New User</button>
+  </div>
+
+  <!-- User Table -->
+  <div>
+    <section>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Role</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let admin of admins; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <!-- Toggle between input and text -->
+              <input *ngIf="admin.isEditing" [(ngModel)]="admin.name" />
+              <span *ngIf="!admin.isEditing">{{ admin.name }}</span>
+            </td>
+            <td>
+              <span>{{ admin.email }}</span>
+            </td>
+            <td>
+              <!-- Toggle between input and text -->
+              <input *ngIf="admin.isEditing" [(ngModel)]="admin.phoneNum" />
+              <span *ngIf="!admin.isEditing">{{ admin.phoneNum }}</span>
+            </td>
+            <td>
+              <span>{{ admin.role }}</span>
+            </td>
+            <td class="actions-btns">
+              <button class="edit-btn" *ngIf="!admin.isEditing" (click)="onEditClick(admin)">
+                <img src="/assets/images/edit.svg" alt="Edit" title="Edit">
+              </button>
+              <button class="save-btn" *ngIf="admin.isEditing" (click)="onSaveAdmin(admin)">
+                <img src="/assets/images/save.svg" alt="Save" title="Save">
+              </button>
+              <button class="delete-btn" (click)="onDeleteAdmin(admin._id)">
+                <img src="/assets/images/trashcan.svg" alt="Delete" title="Delete">
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</div>

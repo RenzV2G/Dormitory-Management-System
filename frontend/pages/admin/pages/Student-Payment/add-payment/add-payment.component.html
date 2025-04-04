@@ -1,0 +1,77 @@
+<section style="padding: 70px 200px;">
+  <div class="payment-list">
+    <div class="table-header">
+      <h2>Add New Payment</h2>
+    </div>
+  </div>
+  <form class="container">
+    <div class="red-top">
+      <h3>Student Payment Details</h3>
+    </div>
+  
+    <div style="padding: 20px">
+      <!-- Grid for Form Fields -->
+      <div class="form-grid">
+        <div class="autocomplete-container form-group">
+          <label>Student Name</label>
+          <input 
+            type="text" 
+            [(ngModel)]="searchQuery" 
+            name="searchQuery"
+            (input)="filterStudents()" 
+            (focus)="onFocus()" 
+            placeholder="Search student by name or student number" 
+            class="autocomplete-input" 
+          />
+          <div 
+            class="autocomplete-dropdown" 
+            *ngIf="dropdownOpen && filteredStudents.length > 0"
+          >
+            <div 
+              class="autocomplete-option" 
+              *ngFor="let student of filteredStudents" 
+              (click)="selectStudent(student)">
+              {{ student.name }} ({{ student.studentNo }})
+            </div>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>Transaction Number</label>
+          <input [(ngModel)]="transactionNo" name="transactionNo" />
+        </div>
+  
+        <div class="form-group">
+          <label>Payment Date</label>
+          <input [(ngModel)]="paymentDate" name="paymentDate" type="date" />
+        </div>
+  
+        <div class="form-group">
+          <label>Amount</label>
+          <input [(ngModel)]="amount" name="amount" type="number" />
+        </div>
+  
+        <div class="form-group">
+          <label>Payment Method</label>
+          <select class="pay-method" [(ngModel)]="paymentMethod" name="paymentMethod">
+            <option value="Cash">Cash</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+            <option value="Online">Online</option>
+          </select>
+        </div>
+  
+        <!-- Full-width Remarks -->
+        <div class="form-group">
+          <label>Remarks</label>
+          <input [(ngModel)]="remarks" name="remarks" />
+        </div>
+      </div>
+  
+      <!-- Button spans full width below -->
+      <div class="button-container">
+        <button (click)="addPayment()">Add Payment</button>
+      </div>
+    </div>
+  </form>
+  
+</section>

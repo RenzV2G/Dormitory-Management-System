@@ -1,0 +1,119 @@
+<section style="padding: 0 200px;">
+  <div class="user-list">
+    <div class="table-header">
+      <h2>Room Allocation</h2>
+    </div>
+  </div>
+
+  <div class="room-allocation">
+    <div class="red-top">
+      <h3>Student’s Room Allocation</h3>
+    </div>
+    
+    <!-- Form Section -->
+    <div class="form-section" style="padding: 20px; ">
+
+      <div class="form-row">
+        <!-- Student Name -->
+        <div class="autocomplete-container form-group">
+          <label for="student">Student Name:</label>
+          <select id="student" (change)="onStudentSelect($event)">
+            <option value="">Select a Student</option>
+            <option *ngFor="let student of students" [value]="student._id">
+              {{ student.name }}
+            </option>
+          </select>
+        </div>
+        
+        <!-- Room No. -->
+        <div class="form-group">
+          <label for="room">Room No.:</label>
+          <select id="room" (change)="onRoomSelect($event)" [disabled]="!selectedStudent">
+            <option value="">Select a Room</option>
+            <option *ngFor="let room of availableRooms" [value]="room.roomNumber">
+              {{ room.roomNumber }}
+            </option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <!-- Building -->
+        <div *ngIf="building || building === ''" class="form-group">
+          <label for="building">Building:</label>
+          <h3>{{ building || 'N/A' }}</h3>
+        </div>
+      
+        <!-- Bed -->
+        <div class="form-group">
+          <label for="bed">Bed:</label>
+          <select id="bed" (change)="onBedSelect($event)" [disabled]="!selectedRoom">
+            <option value="">Select a Bed</option>
+            <option *ngFor="let bed of availableBedLetters" [value]="bed">
+              Bed {{ bed }}
+            </option>
+          </select>
+        </div>
+      </div>
+        <!-- Room No. -->
+        
+
+      <!-- Save Button -->
+      <div style="text-align: center; margin-top: 40px;" >
+        <button class="red-btn" (click)="onRoomAssign()" [disabled]="!selectedStudent || !selectedRoom || !selectedBedLetter || isLoading">
+          <span *ngIf="isLoading">Assigning...</span>
+          <span *ngIf="!isLoading">Save</span>
+        </button>
+      </div>
+    </div>
+  
+    <!-- Table Section -->
+    <div class="table-section" style="padding: 20px;">
+      <div class="pagination">
+
+        <div class="search">
+          <label for="search" style="font-weight: bold;">Search:</label>
+          <input
+            id="search"
+            type="text"
+            [(ngModel)]="searchTerm"
+            (input)="onSearchChange()" 
+            placeholder="Search by name, room, or building"
+          />
+        </div>
+
+      </div>
+  
+      <table *ngIf="assignedStudents.length > 0; else noAssignedStudents">
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Building</th>
+            <th>Room No.</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of filteredAssignedStudents">
+            <td>{{ student.name }}</td>
+            <td>{{ student.building }}</td>
+            <td>{{ student.roomDetails }}</td>
+            <td>
+              <i class="fa fa-trash" (click)="onRemoveRoomAssignment(student)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #noAssignedStudents>
+        <p>No students have been assigned rooms yet.</p>
+      </ng-template>
+  
+      <div class="pagination">
+        <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,115 @@
+<div class="analytics-dashboard">
+  <div class="analytics-content">
+    <!-- New Containers Above Analytics -->
+    <div class="two-container">
+      <div class="new-container">
+        <div class="row-1">
+          <img class="total-students-img" src="/assets/images/total-students.svg">
+          <div class="container-text">
+            <h3>{{approvedCount}}</h3>
+            <p>Total Students</p>
+          </div>
+        </div>
+        <div class="white-bottom" [routerLink]="['/dashboard/student-list']">
+          <h3>View details</h3>
+        </div>
+      </div>
+      <div class="new-container">
+        <div class="row-1">
+          <img class="total-rooms-img" src="/assets/images/total-rooms.svg">
+          <div class="container-text">
+            <h3>{{totalAvailableRooms}}</h3>
+            <p>Total Rooms</p>
+          </div>
+        </div>
+        <div class="white-bottom" [routerLink]="['/dashboard/room-allocation']">
+          <h3 >View details</h3>
+        </div>
+      </div>
+    </div>
+    <!-- Main Analytics Column -->
+    <div class="analytics-container">
+      <div class="red-top">
+
+        <h3>Analytics</h3>
+        <br>
+        <div class="filter-options">
+          <label for="year">Year:</label>
+          <select [(ngModel)]="selectedYear" (change)="onYearChange()">
+            <option *ngFor="let year of availableYears" [value]="year">{{ year }}</option>
+          </select>
+      
+          <label for="month">Month:</label>
+          <select id="month" [(ngModel)]="selectedMonth" (change)="onMonthChange()">
+            <option *ngFor="let month of availableMonths" [value]="month">{{ monthNames[month - 1] }}</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="analytics-main">
+        <div class="analytics-card">
+          <h3>Monthly and Yearly Breakdown of Student Form Submissions</h3>
+          <canvas id="analyticsForMonthNYear"></canvas>
+        </div>
+
+        <div class="analytics-card">
+          <h3>{{ chartTitleRate }}</h3>
+          <canvas id="approvalRejectionChart"></canvas>
+        </div>
+
+        <div class="analytics-card">
+          <h3>{{ chartTitle }}</h3>
+          <canvas id="genderSubmissionsChart"></canvas>
+        </div>
+        
+        
+        <div class="analytics-card">
+          <h3>Year-Level Demographics of Dormitory Residents</h3>
+          <canvas id="yearLevelChart"></canvas>
+        </div>
+
+        <div class="analytics-card">
+          <h3>Most Used Payment Method</h3>
+          <canvas id="paymentMethodChart"></canvas>
+        </div>
+
+        <div class="analytics-card">
+          <h3>Top 5 Provinces with the Most Submissions</h3>
+          <div *ngIf="topProvinces.length > 0">
+            <ul class="province-list">
+              <li *ngFor="let province of topProvinces; let i = index" class="province-item">
+                <strong class="province-title">{{ i + 1 }}. {{ province.province }}: {{ province.submissionCount }} submissions</strong>
+              </li>
+            </ul>
+          </div>
+          <div *ngIf="topProvinces.length === 0">No data available.</div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- Sidebar -->
+  <div class="analytics-sidebar">
+    <div class="red-top">
+      <h3>Activities</h3>
+    </div>
+    <div>
+      <ul class="activity-list">
+
+        <li class="activity-item" *ngFor="let log of logs">
+          <span class="activity-icon">
+            <img [src]="getActivityIcon(log.action)" alt="{{ log.action }}">
+          </span>
+          <div class="activity-content">
+            <span class="activity-text">{{ log.admin }} has {{ log.details }}</span>
+            <span class="activity-date">{{ log.timestamp | date:'medium' }}</span>
+          </div>
+        </li>
+       
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,267 @@
+<div class="modal-overlay">
+  <div class="modal-content">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h5 class="modal-title">Student Information</h5>
+      <button type="button" class="btn-close" (click)="onClose()"><img src="/assets/images/close.svg"></button>
+    </div>
+
+    <!-- Student Information (Always Visible) -->
+    <div class="scroll">
+      <div class="student-info">
+        <div>
+          <img [src]="studentDetails.personalInfo?.profilePicture || '/assets/images/profile.svg'" alt="Student-profile" />
+          
+          <p><strong>Name: </strong>
+            <span>{{ studentDetails.name }}</span>
+          </p>
+          <p><strong>Student No.: </strong>{{ studentDetails.studentNo }}</p>
+          <p><strong>Course: </strong>
+            <span *ngIf="!isEditMode">{{ studentDetails?.personalInfo?.course }}</span>
+            <input *ngIf="isEditMode" [(ngModel)]="studentDetails.personalInfo.course" />
+          </p>
+          <p><strong>Year Level: </strong>
+            <span *ngIf="!isEditMode">{{ studentDetails?.personalInfo?.yearLevel }}</span>
+            <input *ngIf="isEditMode" [(ngModel)]="studentDetails.personalInfo.yearLevel" />
+          </p>
+        </div>
+        <div class="student-details">
+          <div class="student-details1">
+            <p><strong>Room & Bed Letter: </strong>{{ studentDetails.roomAssigned?.roomNumber }} - {{ studentDetails.roomAssigned?.bedLetter }}</p>
+            <p><strong>Status: </strong>{{ studentDetails.status }}</p>
+            <p><strong>Building: </strong>{{ studentDetails.roomAssigned?.building }}</p>
+            <p><strong>Date of Approval: </strong>{{ studentDetails.approvedAt | date:'mediumDate'}}</p>
+          </div>
+          <hr>
+          <div class="student-details2">
+            <p><strong>Sex: </strong>{{ studentDetails?.personalInfo?.sex }}</p>
+            <p><strong>Nationality: </strong>{{ studentDetails?.personalInfo?.nationality }}</p>
+            <p><strong>Age: </strong>
+              <span *ngIf="!isEditMode">{{ studentDetails?.personalInfo?.age }}</span>
+              <input *ngIf="isEditMode" [(ngModel)]="studentDetails.personalInfo.age" type="number" />
+            </p>
+            <p><strong>Religion: </strong>{{ studentDetails?.personalInfo?.religion }}</p>
+            <p><strong>Date of Birth: </strong>
+              <span *ngIf="!isEditMode">{{ studentDetails?.personalInfo?.dateOfBirth | date:'mediumDate' }}</span>
+              <input *ngIf="isEditMode" type="date" [(ngModel)]="studentDetails.personalInfo.dateOfBirth" />
+            </p>
+            <p><strong>Civil status: </strong>{{ studentDetails?.personalInfo?.civilStatus }}</p>
+            <p><strong>Place of Birth: </strong>
+              <span *ngIf="!isEditMode">{{ studentDetails?.personalInfo?.placeOfBirth }}</span>
+              <input *ngIf="isEditMode" [(ngModel)]="studentDetails.personalInfo.placeOfBirth" />
+            </p>
+            <p><strong>Tel No: </strong>
+              <span *ngIf="!isEditMode">{{ studentDetails?.personalInfo?.telNo }}</span>
+              <input *ngIf="isEditMode" [(ngModel)]="studentDetails.personalInfo.telNo" />
+            </p>
+            <p><strong>Email: </strong>{{ studentDetails.email }}</p>
+            <p><strong>Height: </strong>
+              <span *ngIf="!isEditMode">{{ studentDetails.healthCondition?.height }} cm</span>
+              <input *ngIf="isEditMode" [(ngModel)]="studentDetails.healthCondition.height" type="number" />
+            </p>
+            <p><strong>Weight: </strong>
+              <span *ngIf="!isEditMode">{{ studentDetails.healthCondition?.weight }} kg</span>
+              <input *ngIf="isEditMode" [(ngModel)]="studentDetails.healthCondition.weight" type="number" />
+            </p>
+            <p><strong>Facebook: </strong>
+              <span *ngIf="!isEditMode">{{ studentDetails?.personalInfo?.facebookAcct }}</span>
+              <input *ngIf="isEditMode" [(ngModel)]="studentDetails.personalInfo.facebookAcct" />
+            </p>
+            <p><strong>Address: </strong>
+              <span *ngIf="!isEditMode">
+                {{ studentDetails?.personalInfo?.homeAddress?.country }},
+                {{ studentDetails?.personalInfo?.homeAddress?.city }},
+                {{ studentDetails?.personalInfo?.homeAddress?.province }},
+                {{ studentDetails?.personalInfo?.homeAddress?.houseNumber }},
+                {{ studentDetails?.personalInfo?.homeAddress?.zipCode }}
+              </span>
+              <span class="edit-address" *ngIf="isEditMode">
+                <input [(ngModel)]="studentDetails.personalInfo.homeAddress.country" placeholder="Country" />
+                <input [(ngModel)]="studentDetails.personalInfo.homeAddress.city" placeholder="City" />
+                <input [(ngModel)]="studentDetails.personalInfo.homeAddress.province" placeholder="Province" />
+                <input [(ngModel)]="studentDetails.personalInfo.homeAddress.houseNumber" placeholder="House Number" />
+                <input [(ngModel)]="studentDetails.personalInfo.homeAddress.zipCode" placeholder="Zip Code" />
+              </span>
+            </p>
+            <p><strong>Wears Glasses: </strong>
+              <span *ngIf="!isEditMode">{{ studentDetails.healthCondition?.glasses ? 'Yes' : 'No' }}</span>
+              <select class="wear-glasses-option" *ngIf="isEditMode" [(ngModel)]="studentDetails.healthCondition.glasses">
+                <option [value]="true">Yes</option>
+                <option [value]="false">No</option>
+              </select>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs Section -->
+      <ul class="tabs">
+        <li 
+          [class.active]="activeTab === 'family'"
+          (click)="setActiveTab('family')">
+          Family Background
+        </li>
+        <li 
+          [class.active]="activeTab === 'health'"
+          (click)="setActiveTab('health')">
+          Health Conditions
+        </li>
+        <li 
+          [class.active]="activeTab === 'others'"
+          (click)="setActiveTab('others')">
+          Other Information
+        </li>
+      </ul>
+    <!-- Tab Content Section -->
+    <div class="tab-content">
+      <!-- Family Background Tab -->
+      <div *ngIf="activeTab === 'family'">
+        <div class="family-section">
+          <h6>Father's Details</h6>
+          <div class="nested-details">
+            <p><strong>Name:</strong> {{ studentDetails.familyBackground?.fatherDetails?.name }}</p>
+            <p><strong>Date of Birth:</strong> {{ studentDetails.familyBackground?.fatherDetails?.dateOfBirth | date:'mediumDate' }}</p>
+            <p><strong>Age:</strong> {{ studentDetails.familyBackground?.fatherDetails?.age }}</p>
+            <p><strong>Place of Birth:</strong> {{ studentDetails.familyBackground?.fatherDetails?.placeOfBirth }}</p>
+            <p><strong>Religion:</strong> {{ studentDetails.familyBackground?.fatherDetails?.religion }}</p>
+            <p><strong>Nationality:</strong> {{ studentDetails.familyBackground?.fatherDetails?.nationality }}</p>
+            <p><strong>Occupation:</strong> {{ studentDetails.familyBackground?.fatherDetails?.occupation }}</p>
+            <p><strong>Employer:</strong> {{ studentDetails.familyBackground?.fatherDetails?.nameOfEmployer }}</p>
+            <p><strong>Address:</strong>
+              {{ studentDetails.familyBackground?.fatherDetails?.homeAddress?.houseNumber }},
+              {{ studentDetails.familyBackground?.fatherDetails?.homeAddress?.city }},
+              {{ studentDetails.familyBackground?.fatherDetails?.homeAddress?.province }},
+              {{ studentDetails.familyBackground?.fatherDetails?.homeAddress?.country }},
+              {{ studentDetails.familyBackground?.fatherDetails?.homeAddress?.zipCode }}
+            </p>
+            <p><strong>Telephone No:</strong> {{ studentDetails.familyBackground?.fatherDetails?.telNo }}</p>
+          </div>
+          <h6>Mother's Details</h6>
+          <div class="nested-details">
+            <p><strong>Name:</strong> {{ studentDetails.familyBackground?.motherDetails?.name }}</p>
+            <p><strong>Date of Birth:</strong> {{ studentDetails.familyBackground?.motherDetails?.dateOfBirth | date:'mediumDate' }}</p>
+            <p><strong>Age:</strong> {{ studentDetails.familyBackground?.motherDetails?.age }}</p>
+            <p><strong>Place of Birth:</strong> {{ studentDetails.familyBackground?.motherDetails?.placeOfBirth }}</p>
+            <p><strong>Religion:</strong> {{ studentDetails.familyBackground?.motherDetails?.religion }}</p>
+            <p><strong>Nationality:</strong> {{ studentDetails.familyBackground?.motherDetails?.nationality }}</p>
+            <p><strong>Occupation:</strong> {{ studentDetails.familyBackground?.motherDetails?.occupation }}</p>
+            <p><strong>Employer:</strong> {{ studentDetails.familyBackground?.motherDetails?.nameOfEmployer }}</p>
+            <p><strong>Address:</strong>
+              {{ studentDetails.familyBackground?.motherDetails?.homeAddress?.houseNumber }},
+              {{ studentDetails.familyBackground?.motherDetails?.homeAddress?.city }},
+              {{ studentDetails.familyBackground?.motherDetails?.homeAddress?.province }},
+              {{ studentDetails.familyBackground?.motherDetails?.homeAddress?.country }},
+              {{ studentDetails.familyBackground?.motherDetails?.homeAddress?.zipCode }}
+            </p>
+            <p><strong>Telephone No:</strong> {{ studentDetails.familyBackground?.motherDetails?.telNo }}</p>
+          </div>
+        </div>
+
+        <h6>Siblings Information</h6>
+        <div *ngIf="studentDetails.familyBackground?.numberOfSiblings?.length > 0; else noSiblings">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Classification</th>
+                <th>sex</th>
+                <th>age</th>
+                <th>civil status</th>
+                <th>school/company</th>
+                <th>grade/company</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sibling of studentDetails.familyBackground?.numberOfSiblings">
+                <td> {{ sibling.name }}</td>
+                <td> {{ sibling.classification }}</td>
+                <td> {{ sibling.sex }}</td>
+                <td> {{ sibling.age }}</td>
+                <td> {{ sibling.civilStatus }}</td>
+                <td> {{ sibling.schoolOccupation }}</td>
+                <td> {{ sibling.gradeCompany }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ng-template #noSiblings>
+          <p>No siblings information available.</p>
+        </ng-template>
+      </div>
+
+      <!-- Health Conditions Tab -->
+      <div class="health-tab" *ngIf="activeTab === 'health'">
+        <p><strong>Weight:</strong> {{ studentDetails.healthCondition?.weight }} kg</p>
+        <p><strong>Height:</strong> {{ studentDetails.healthCondition?.height }} cm</p>
+        <p><strong>Glasses:</strong> {{ studentDetails.healthCondition?.glasses ? 'Yes' : 'No' }}</p>
+        <h6>Illnesses</h6>
+        <table>
+          <thead>
+            <tr>
+              <th>Illness</th>
+              <th>Age</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let illness of studentDetails.healthCondition?.illnesses">
+              <td> {{ illness.name }}</td>
+              <td> {{ illness.age }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Others Tab -->
+      <div class="others" *ngIf="activeTab === 'others'">
+        <table>
+          <thead>
+            <tr>
+              <th>Hobbies</th>
+              <th>Talent/Skills</th>
+              <th>Leisure Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <ul>
+                  <li *ngFor="let hobby of studentDetails.hobbies">{{ hobby }}</li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li *ngFor="let talent of studentDetails.talentsSkills">{{ talent }}</li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li *ngFor="let leisure of studentDetails.leisureTime">{{ leisure }}</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+
+    </div>
+  </div>
+    <!-- Modal Footer -->
+    <div class="modal-footer">
+
+      <button *ngIf="!isEditMode" class="btn btn-danger" (click)="onRemoveStudent()">Remove Student</button>
+      <div *ngIf="isEditMode">
+        <button class="btn" (click)="saveChanges()">Save Changes</button>
+        <button class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+      </div>
+      <div *ngIf="!isEditMode">
+        <button class="btn"(click)="toggleEditMode()">Edit</button>
+        <!-- <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button> -->
+      </div>
+      <div *ngIf="!isEditMode">
+        <button type="button" class="btn btn-secondary" (click)="downloadExcel()">Export</button>
+      </div>
+    </div>
+  
+  </div>
+</div>

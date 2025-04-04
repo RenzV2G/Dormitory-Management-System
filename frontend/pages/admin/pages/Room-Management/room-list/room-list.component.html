@@ -1,0 +1,58 @@
+<!-- occupied-rooms.component.html -->
+<div class="room-list-header">
+  <h2 style="padding: 20px;">
+    Room List
+  </h2>
+  <div class="room-selection">
+      <h3>Filter:</h3>
+      <button class="gender-btn" (click)="setGenderMale()" [class.active]="gender === 'Male'">Male</button>
+      <button class="gender-btn" (click)="setGenderFemale()" [class.active]="gender === 'Female'">Female</button>
+    
+      <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  </div>
+</div>
+
+  
+  <!-- Display Room details outside the table -->
+  <div class="room-container">
+    <div style="margin-bottom: 30px;" *ngFor="let room of getRoomsForCurrentPage()">
+        <h4>{{ room.roomNumber }} |  {{ room.building }}</h4>
+    
+            <table class="room-table">
+            <thead>
+              <tr>
+                <th>Bed Letter</th>
+                <th>Student Name</th>
+                <th>Student No</th>
+                <th>Contact</th>
+                <th>Course & Year</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let bed of room.occupiedBeds">
+                <td>{{ bed.bedLetter }}</td>
+                <td>{{ bed.studentName }}</td>
+                <td>{{ bed.studentNo }}</td>
+                <td>{{ bed.studentContact }}</td>
+                <td>{{ bed.studentCourse }} - {{ bed.studentYearLevel }}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div><!-- Table for displaying student details -->
+  </div>
+  
+    
+  <!-- Message if no rooms are available -->
+  <div class="no-room" *ngIf="occupiedRooms.length === 0">
+    <p style="text-align: center;">No occupied rooms found for the selected gender and building.</p>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+    <p>Page {{ currentPage }} of {{ totalPages() }}</p>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages()">Next</button>
+  </div>
+
+  
+  

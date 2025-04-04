@@ -1,0 +1,124 @@
+<section style="padding: 70px 200px;">
+  <div class="user-list">
+    <div class="table-header">
+      <h2>Add New User</h2>
+    </div>
+  </div>
+
+  <form class="container" [formGroup]="adminForm" (ngSubmit)="onRegisterAdmin()">
+    <div class="red-top"><h3>User Details</h3></div>
+
+    <div style="padding: 20px;">
+
+      <div class="form-row">
+
+        <div class="form-group" [class.invalid]="adminForm.get('name')?.invalid && adminForm.get('name')?.touched">
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="Enter name" formControlName="name" required />
+          <div *ngIf="adminForm.get('name')?.invalid && adminForm.get('name')?.touched" class="error-msg">
+            Name is required.
+          </div>
+        </div>
+
+        <div class="form-group" [class.invalid]="adminForm.get('email')?.invalid && adminForm.get('email')?.touched">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter email" formControlName="email" required />
+          <div *ngIf="adminForm.get('email')?.hasError('required') && adminForm.get('email')?.touched" class="error-msg">
+            Email is required.
+          </div>
+          <div *ngIf="adminForm.get('email')?.hasError('email') && adminForm.get('email')?.touched" class="error-msg">
+            Please enter a valid email.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group" [class.invalid]="adminForm.get('phoneNum')?.invalid && adminForm.get('phoneNum')?.touched">
+          <label for="phoneNumber">Phone Number</label>
+          <input type="tel" id="phoneNum" placeholder="Enter phone number" formControlName="phoneNum" required />
+          <div *ngIf="adminForm.get('phoneNum')?.hasError('required') && adminForm.get('phoneNum')?.touched" class="error-msg">
+            Phone number is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="role">Role</label>
+          <select id="role" name="role" formControlName="role" required>
+            <option value="" disabled selected>Select a role</option>
+            <option value="Custodian">Custodian</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group" [class.invalid]="adminForm.get('password')?.invalid && adminForm.get('password')?.touched">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter password" formControlName="password" required />
+          <div *ngIf="adminForm.get('password')?.hasError('required') && adminForm.get('password')?.touched" class="error-msg">
+            Password is required.
+          </div>
+          <div *ngIf="adminForm.get('password')?.hasError('minlength') && adminForm.get('password')?.touched" class="error-msg">
+            Password must be at least 6 characters.
+          </div>
+        </div>
+
+        <div class="form-group" [class.invalid]="passwordsDoNotMatch && adminForm.get('confirmPassword')?.touched">
+          <label for="password">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm Password"
+            formControlName="confirmPassword"
+            required
+          />
+          <div *ngIf="passwordsDoNotMatch && adminForm.get('confirmPassword')?.touched" class="error-msg">
+            Passwords do not match.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group" [class.invalid]="adminForm.get('pin')?.invalid && adminForm.get('pin')?.touched">
+          <label for="pin">PIN</label>
+          <input type="password" id="pin" placeholder="Enter PIN" formControlName="pin" required maxlength="6" />
+          <div *ngIf="adminForm.get('pin')?.hasError('required') && adminForm.get('pin')?.touched" class="error-msg">
+            PIN is required.
+          </div>
+          <div *ngIf="adminForm.get('pin')?.hasError('minlength') && adminForm.get('pin')?.touched" class="error-msg">
+            PIN must be at least 6 digits.
+          </div>
+        </div>
+
+        <div class="form-group" [class.invalid]="pinDoNotMatch && adminForm.get('confirmPin')?.touched">
+          <label for="pin">Confirm PIN</label>
+          <input
+            type="password"
+            id="confirmPin"
+            placeholder="Confirm Pin"
+            formControlName="confirmPin"
+            required
+            maxlength="6"
+          />
+          <div *ngIf="pinDoNotMatch && adminForm.get('confirmPin')?.touched" class="error-msg">
+            PINs do not match.
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align: center;">
+        <button type="submit" [disabled]="!adminForm.valid || passwordsDoNotMatch || pinDoNotMatch || adminForm.pristine">
+          Register
+        </button>
+      </div>
+
+    </div>
+
+  </form>
+</section>

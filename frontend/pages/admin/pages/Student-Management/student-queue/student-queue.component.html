@@ -1,0 +1,232 @@
+<div class="queue-list">
+  <!-- Queue Summary -->
+  <h2 style="padding: 20px;">
+    Application Queue
+  </h2>
+  <div class="queue-summary">
+    <div class="queue-card pending">
+      <p class="queue-card-number">{{ pendingCount }}</p>
+      <p>Pending</p>
+    </div>
+    <div class="queue-card approved">
+      <p class="queue-card-number">{{ approvedCount }}</p>
+      <p>Approved</p>
+    </div>
+    <div class="queue-card renewals">
+      <p class="queue-card-number">{{ renewalCount }}</p>
+      <p>Renewals</p>
+    </div>
+  </div>  
+
+  <div class="queue-list">
+    <!-- Heading and Gender Buttons -->
+    <div class="table-header">
+      <h3>
+        New Applicants (
+        {{ selectedGender === 'MaleQueue' ? 'Male' : 'Female' }}
+        )
+      </h3>
+      <div class="gender-buttons">
+        <p>Filter:</p>
+        <button
+          class="gender-btn"
+          [class.active]="selectedGender === 'MaleQueue'"
+          (click)="switchQueue('MaleQueue')">
+          Male
+        </button>
+        <button
+          class="gender-btn"
+          [class.active]="selectedGender === 'FemaleQueue'"
+          (click)="switchQueue('FemaleQueue')">
+          Female
+        </button>
+
+
+        <p style="padding: 0 0 0 20px">Form Submission Lock:</p>
+        <button class="red-btn" (click)="toggleFormSubmissionLock('Male')">
+          {{ lockedGenders.includes('Male') ? 'Unlock Male' : 'Lock Male' }}
+        </button>
+        <button class="red-btn" (click)="toggleFormSubmissionLock('Female')">
+          {{ lockedGenders.includes('Female') ? 'Unlock Female' : 'Lock Female' }}
+        </button>
+        
+
+
+
+
+        <div>
+          <form class="deadline" (submit)="onSetDeadline($event)">
+            <div *ngIf="message" class="alert alert-info mt-3">
+              {{ message }}
+            </div>
+            <div class="form-group">
+              <label style="padding: 0 0 0 20px" for="deadline">Renewal Deadline:</label>
+              <input
+                type="datetime-local"
+                id="deadline"
+                class="form-control"
+                [(ngModel)]="deadline"
+                name="deadline"
+                required
+              />
+            </div>
+            <button type="submit" class="red-btn">Set Deadline</button>
+          </form>          
+
+        </div>
+      </div>
+    </div>
+  
+    <!-- Applicant Tables -->
+    <div class="applicant-tables">
+      <section *ngIf="selectedGender === 'MaleQueue'">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Student Name</th>
+              <th>Student No.</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of maleApplicants; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ student.name }}</td>
+              <td>{{ student.studentNo }}</td>
+              <td>{{ student.submittedAt | date: 'MM/dd/yy' }}</td>
+              <td class="td-view"><a (click)="openModal(student)">View</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <div  class="pagination">
+          <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+          <p>Page {{ currentPage }} of {{ totalPages }}</p>
+          <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+        </div>
+        <app-modal-student
+        *ngIf="selectedStudent"
+        [student]="selectedStudent"
+        (close)="closeModal()">
+        </app-modal-student>
+      </section>
+  
+      <section *ngIf="selectedGender === 'FemaleQueue'">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Student Name</th>
+              <th>Student No.</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of femaleApplicants; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ student.name }}</td>
+              <td>{{ student.studentNo }}</td>
+              <td>{{ student.submittedAt | date: 'MM/dd/yy' }}</td>
+              <td class="td-view"><a (click)="openModal(student)">View</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <div  class="pagination">
+          <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+          <p>Page {{ currentPage }} of {{ totalPages }}</p>
+          <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+        </div>
+        <app-modal-student
+      *ngIf="selectedStudent"
+      [student]="selectedStudent"
+      (close)="closeModal()">
+      </app-modal-student>
+      </section>
+    </div>
+
+
+
+
+
+    
+    <div class="table-header">
+      <h3>
+        Renewal Applicants (
+        {{ selectedGender === 'MaleQueue' ? 'Male' : 'Female' }}
+        )
+      </h3>
+    </div>
+
+    <div class="applicant-tables">
+      <section *ngIf="selectedGender === 'MaleQueue'">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Student Name</th>
+              <th>Student No.</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of renewalMaleApplicants; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ student.name }}</td>
+              <td>{{ student.studentNo }}</td>
+              <td>{{ student.submittedAt | date: 'MM/dd/yy' }}</td>
+              <td class="td-view"><a (click)="openModalRenewal(student)">View</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <button (click)="goToRenewalPage(renewalCurrentPage - 1)" [disabled]="renewalCurrentPage === 1">Previous</button>
+          <p>Page {{ renewalCurrentPage }} of {{ renewalTotalPages }}</p>
+          <button (click)="goToRenewalPage(renewalCurrentPage + 1)" [disabled]="renewalCurrentPage === renewalTotalPages">Next</button>
+        </div>
+        <app-modal-renewal-student
+        *ngIf="selectedStudentRenewal"
+        [student]="selectedStudentRenewal"
+        (close)="closeModal()">
+        </app-modal-renewal-student>
+      </section>
+  
+      <section *ngIf="selectedGender === 'FemaleQueue'">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Student Name</th>
+              <th>Student No.</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of renewalFemaleApplicants; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ student.name }}</td>
+              <td>{{ student.studentNo }}</td>
+              <td>{{ student.submittedAt | date: 'MM/dd/yy' }}</td>
+              <td class="td-view"><a (click)="openModalRenewal(student)">View</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <button (click)="goToRenewalPage(renewalCurrentPage - 1)" [disabled]="renewalCurrentPage === 1">Previous</button>
+          <p>Page {{ renewalCurrentPage }} of {{ renewalTotalPages }}</p>
+          <button (click)="goToRenewalPage(renewalCurrentPage + 1)" [disabled]="renewalCurrentPage === renewalTotalPages">Next</button>
+        </div>
+        <app-modal-renewal-student
+        *ngIf="selectedStudentRenewal"
+        [student]="selectedStudentRenewal"
+        (close)="closeModal()">
+        </app-modal-renewal-student>
+      </section>
+    </div>
+
+  </div>
+  
+</div>

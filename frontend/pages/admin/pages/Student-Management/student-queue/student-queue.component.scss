@@ -1,0 +1,245 @@
+.queue-list {
+  padding: 20px;
+}
+
+.queue-summary {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 200px;
+  font-family: Source Sans 3;
+}
+
+.queue-card {
+  background-color: white;
+  padding: 15px 80px;
+  text-align: center;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  border-radius: 5px; 
+}
+
+.pending {
+  border: solid 5px #676363;
+}
+
+.approved {
+  border: solid 5px #3B7E56;
+}
+
+.renewals {
+  border: solid 5px #FDBE00;
+}
+
+.queue-card .queue-card-number {
+  font-size: 40px; 
+  font-weight: bold; 
+  margin-right: 10px;
+}
+
+.queue-card p {
+  font-size: 20px; 
+  margin: 0; 
+  font-weight: normal; 
+  color: #333; 
+}
+
+.gender-buttons {
+  font-family: Oswald;
+  font-size: 20px;
+  display: flex;
+  gap: 10px; 
+}
+
+.gender-btn {
+  margin: 0;
+  height: 40px;
+  width: 100px;
+  border: none;
+  background-color: #ddd;
+  color: #000;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.gender-btn.active {
+  background-color: #660018;
+  color: #fff;
+}
+
+.red-btn {
+  margin: 0;
+  font-size: 20px;
+  font-family: Oswald;
+  border: none;
+  width: 120px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #660018;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.red-btn:hover {
+  background-color: #880020;
+}
+
+.red-btn:active {
+  background-color: #500010;
+  transform: scale(0.95);
+}
+
+.applicant-tables {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  font-family: Oswald;
+  font-size: 30px;
+  color: #660018;
+}
+
+h3 {
+  margin: 0;
+  font-family: Oswald;
+  font-size: 25px;
+  color: black;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th{
+  border: 2px solid white;
+  padding: 8px;
+  text-align: left;
+  font-family: Source Sans 3;
+  font-weight: 500;
+  background-color: #660018;
+  color: #fff;
+}
+
+td {
+  background-color: #D9D9D9;
+  color: black;
+  font-family: Source Sans 3;
+  padding: 5px;
+  font-weight: 500;
+  border: 2px solid white;
+  a{
+    text-align: center;
+    color: #168BE1;
+    &:hover{
+      color: #168BE1;
+      text-decoration: underline;
+    }
+  }
+}
+
+.td-view{
+  text-align: center;
+  cursor: pointer;
+}
+
+.deadline {
+  display: flex;
+  align-items: center;
+  gap: 10px; // Adds spacing between elements
+
+  .form-group {
+    display: flex;
+    align-items: center;
+    gap: 5px; // Space between label and input
+  }
+
+  label {
+    font-size: 20px; 
+    margin: 0; 
+    font-weight: normal; 
+    color: #333; 
+    width: 100%;
+  }
+
+  input {
+    min-width: 200px; // Prevents input from being too small
+    padding: 5px;
+    font-size: 16px;
+    font-family: Source Sans 3;
+  }
+}
+
+.alert {
+  position: absolute;
+  right: 70px;
+  margin-bottom: 120px;
+  color: #880020; // Match the text to the primary color
+  font-family: Source Sans 3;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 20px; // Add some padding to make it more readable
+  z-index: 1000; // Ensure it stays on top of other content
+
+  &.alert-info {
+    background-color: white;
+    border: #880020 solid 1px;
+    color: #880020; // Slightly lighter red for info messages
+  }
+
+  &.alert-success {
+    color: #168BE1; // Blue for success messages
+  }
+
+  &.alert-error {
+    color: #D9534F; // Red for errors
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  
+  button {
+    margin: 0;
+    font-size: 20px;
+    font-family: Oswald;
+    border: none;
+    width: 120px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #660018;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+
+    &:hover {
+      background-color: #870022;
+    }
+
+    &:disabled {
+      background-color: #bbb;
+      cursor: not-allowed;
+    }
+  }
+
+  p {
+    margin: 0 10px;
+    font-size: 14px;
+  }
+}

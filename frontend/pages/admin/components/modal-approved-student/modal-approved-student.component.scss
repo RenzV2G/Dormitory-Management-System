@@ -1,0 +1,324 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  width: 60rem;
+  max-height: 90vh;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  border-radius: 10px;
+
+  .modal-header {
+    font-family: Oswald;
+    font-size: 20px;
+    position: fixed;
+    display: flex;
+    width: 60rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #660018;
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+
+    img{
+      margin-top: -15px;
+      width: 30px;
+      filter: brightness(0) invert(1);
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .btn-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  }
+
+  .scroll{
+    overflow-y: auto;
+    margin-top: 5rem;
+    scrollbar-color: #660018 transparent;
+    scrollbar-width: thick; 
+  }
+  .student-info {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    div:first-child {
+      flex: 0 0 auto;
+      text-align: center;
+      padding: 0 2rem 0 1rem;
+      
+      img {
+        width: 12rem; 
+        height: 12rem;
+        border-radius: 2%; 
+        object-fit: cover; 
+        border: 3px solid #000000; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+      }
+      p {
+        margin: 1rem 0;
+        text-align: left;
+      }
+    }
+    
+    input{
+      width: 100%;
+    }
+    
+    .student-details {
+      display: flex;
+      flex-direction: column;
+      border-radius: 10px;
+      border: 3px solid #660018;
+      padding: 20px;
+  
+      .student-details1,
+      .student-details2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); 
+        column-gap: 20px; 
+        row-gap: 10px; 
+        padding: 0; 
+        margin: 0; 
+  
+        p {
+          margin: 0;
+        }
+      }
+  
+      hr {
+        border-bottom: 2px solid #660018;
+        margin: 20px 0;
+      }
+      input{
+        width: 100%;
+      }
+    }
+  }
+  
+
+  .tabs {
+    padding-left: 2rem;
+    display: flex;
+    justify-content: flex-start;
+    list-style: none;
+    margin: 0;
+    gap: 0 20px;
+
+    li {
+      font-family: Oswald;
+      font-size: 20px;
+      background-color: #676363;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      color: white;
+      border-radius: 5px 5px 0 0;
+
+      &.active {
+        background-color: #660018;
+
+        &:hover{
+          opacity: 1;
+        }
+      }
+      
+      
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .tab-content {
+    margin: 0 2rem;
+    border-radius: 0 10px 10px 10px;
+    border: 3px solid #660018;
+    padding: 20px;
+    height: 20rem;
+    overflow-y: auto;
+    scrollbar-color: #660018 transparent;
+    scrollbar-width: thick; 
+    margin-bottom: 40px;
+  
+    .nested-details{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); 
+      column-gap: 50px; 
+      row-gap: 0; 
+      padding: 0; 
+      margin: 0  0 30px 30px; 
+      p{
+        font-family: Source Sans 3;
+        font-size: 16px;
+      }
+    }
+
+    .health-tab, .others{
+      font-family: Source Sans 3;
+      font-size: 16px;
+    }
+
+    h6 {
+      font-family: Oswald;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #660018;
+    }
+  
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 16px;
+  
+      th, td {
+        border: 1px solid #ddd;
+        padding: 0.75rem;
+        text-align: left;
+        font-size: 16px;
+        vertical-align: top;
+      }
+  
+      th {
+        background: #660018;
+        color: white;
+        text-align: left;
+      }
+  
+      td ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: disc;
+        padding-left: 1.5rem;
+      }
+  
+      tr:nth-child(even) {
+        background: #f9f9f9;
+      }
+    }
+  }
+  
+
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 40px;
+    border-top: 3px solid rgba(102, 0, 24, 0.3);
+
+    .btn {
+      margin-left: 10px;
+      padding-bottom: auto;
+      font-size: 20px;
+      font-family: Oswald;
+      border: none;
+      width: 100px;
+      height: 40px;
+      border-radius: 5px;
+      background-color: #660018;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+
+      &.btn-secondary {
+        background: #6c757d;
+
+        &:hover{
+          background-color: #676363;
+        }
+
+      }
+
+      &.btn-danger {
+        background: #660018;
+      }
+
+      &:hover {
+        background-color: #880020;
+      }
+    }
+  }
+}
+
+::ng-deep .swal-popup-warning,::ng-deep .swal-popup-success,::ng-deep .swal-popup-error,::ng-deep .swal-popup-info{
+  background-color: white; 
+  border-radius: 10px; 
+  font-family: Source Sans 3;
+}
+
+::ng-deep .swal-title-warning,::ng-deep .swal-title-success,::ng-deep .swal-title-error,::ng-deep .swal-title-info{
+  font-family: Oswald;
+  color: black;
+  font-weight: bold;
+}
+
+
+::ng-deep .swal-confirm-button-success{
+  font-size: 20px;
+  font-family: Oswald;
+  background-color: #3B7E56; 
+  min-width: 90px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+::ng-deep .swal-confirm-button-success:hover{
+  background-color: #459766;
+}
+
+::ng-deep .swal-confirm-button-warning, ::ng-deep .swal-confirm-button-error{
+  font-size: 20px;
+  font-family: Oswald;
+  min-width: 90px;
+  background-color: #660018; 
+  color: white; 
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+::ng-deep .swal-confirm-button-warning:hover, ::ng-deep .swal-confirm-button-error:hover{
+  background-color: #880020; 
+}
+
+::ng-deep .swal-cancel-button-warning {
+  font-size: 20px;
+  font-family: Oswald;
+  background-color: #6c757d; 
+  color: white; 
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+::ng-deep .swal-cancel-button-warning:hover {
+  background-color: #676363; 
+}
+
