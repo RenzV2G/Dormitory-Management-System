@@ -3,9 +3,9 @@
 
 Team:
 
-Estanislao, Francilyn
-Malong, Kiana
-Notra, Nickaella
-Vitug, Renz
+- Estanislao, Francilyn
+- Malong, Kiana 
+- Notra, Nickaella 
+- Vitug, Renz 
 
 Language used and frameworks: Angular, NodeJS, MongoDB 
