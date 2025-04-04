@@ -1,0 +1,105 @@
+<body>
+  <div class="login-container">
+    <div class="back" (click)="goBack()">
+      <i class="bi bi-arrow-left-circle-fill" ></i>
+      <p>LOGIN</p>
+    </div>
+    
+    <h3>STUDENT REGISTER</h3>
+
+    <!-- Form uses template-driven validation -->
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <div>
+        <label>Student No:</label>
+        <input
+          type="text"
+          formControlName="Student_no"
+        />
+        <div *ngIf="registerForm.get('Student_no')?.invalid && registerForm.get('Student_no')?.touched" class="error-message">
+          Student number is required.
+        </div>
+      </div>
+      <div>
+        <label>First Name:</label>
+        <input
+          type="text"
+          formControlName="firstName"
+        />
+        <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched" class="error-message">
+          First name is required.
+        </div>
+      </div>
+      <div>
+        <label>Middle Name:</label>
+        <input type="text" formControlName="middleName" />
+      </div>
+      <div>
+        <label>Last Name:</label>
+        <input
+          type="text"
+          formControlName="lastName"
+        />
+        <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched" class="error-message">
+          Last name is required.
+        </div>
+      </div>
+      
+      <div>
+        <label>Sex:</label>
+        <select class="form-select" formControlName="sex">
+          <option value="" disabled >Select</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+        <div *ngIf="registerForm.get('sex')?.invalid && registerForm.get('sex')?.touched" class="error-message">
+          Gender is required.
+        </div>
+      </div>
+      
+      <div>
+        <label>Email:</label>
+        <input
+          type="email"
+          formControlName="email"
+        />
+        <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error-message">
+          A valid email is required.
+        </div>
+        <div *ngIf="registerForm.get('email')?.hasError('invalidEmail') && registerForm.get('email')?.touched" class="error-message">
+          Please use a valid HAU student email.
+        </div>
+      </div>
+      <div>
+        <label>Password:</label>
+        <input
+          type="password"
+          formControlName="password"
+          (input)="onPasswordChange()"
+        />
+        <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="error-message">
+          Password is required and must be at least 6 characters.
+        </div>
+      </div>
+      <div>
+        <label>Confirm Password:</label>
+        <input
+          type="password"
+          formControlName="confirmPassword"
+          (input)="onPasswordChange()"
+        />
+        <div *ngIf="passwordMismatch" class="error-message">
+          Passwords do not match.
+        </div>
+      </div>
+      <button
+      type="submit"
+      [disabled]="!registerForm.valid || passwordMismatch || isLoading"
+    >
+      <span *ngIf="!isLoading">Register</span>
+      <span *ngIf="isLoading">
+        <i class="fas fa-spinner fa-spin"></i> Registering...
+      </span>
+    </button>
+    </form>
+  </div>
+</body>

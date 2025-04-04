@@ -1,0 +1,44 @@
+<body>
+  <div class="login-container" [ngClass]="{'expanded': showPinInput}">
+    <div class="back" (click)="goBack()">
+      <i class="bi bi-arrow-left-circle-fill" style="font-size: 1.8rem; color: white;"></i>
+      <p>BACK</p>
+    </div>
+    <h2>ADMIN LOGIN</h2>
+    <form (ngSubmit)="login()">
+      <div>
+        <label for="email">EMAIL</label>
+        <input
+          id="email"
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          autocomplete="off"
+          required
+        />
+      </div>
+      <div>
+        <label for="password">PASSWORD</label>
+        <input
+          id="password"
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          autocomplete="off"
+          required
+        />
+      </div>
+
+      <div  *ngIf="showPinInput">
+        <label for="pin">PIN</label>
+        <input id="pin" type="password" [(ngModel)]="pin" name="pin" autocomplete="off" required />
+      </div>
+      
+      
+      <button type="submit">{{ showPinInput ? 'Validate PIN' : 'Login' }}</button>
+
+
+    </form>
+    <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
+  </div>
+</body>

@@ -1,0 +1,289 @@
+<header class="sticky-header">
+  <div class="logo-title">
+    <img src="/assets/images/hau-logo.png" alt="University Logo" />
+    <div class="title">
+      <span>University Dormitory</span>
+      <span>Office</span>
+    </div>
+  </div>
+  <!-- Hamburger Menu Button -->
+  <button class="menu-toggle" (click)="toggleMenu()"> ☰ </button>
+  <!-- Navigation Menu -->
+  <nav [class.open]="menuOpen">
+    <ul>
+      <li>
+        <a (click)="scrollToSectionAndTop()">Home</a>
+      </li>
+      <li>
+        <a (click)="scrollToSection('section2')">About</a>
+      </li>
+      <li>
+        <a (click)="scrollToSection('section3')">Amenities</a>
+      </li>
+      <li>
+        <a (click)="scrollToSection('section4')">House Rules</a>
+      </li>
+      <li>
+        <a (click)="scrollToSectionWithOffset('section5')">Slots</a>
+      </li>
+      <li>
+        <a (click)="scrollToSectionWithOffset2('section6', 50)">Contact</a>
+      </li>
+      <!-- Button inside nav when on small screen -->
+      <li class="mobile-apply">
+        <button class="apply-btn" (click)="navigateToStudentLogin()">Apply Here</button>
+      </li>
+    </ul>
+  </nav>
+  <!-- Button stays outside on larger screens -->
+  <button class="apply-btn desktop-apply" (click)="navigateToStudentLogin()">Apply Here</button>
+</header>
+<div style="overflow-x: hidden;" (click)="closenav()">
+  <div id="backToTop" class="back-to-top" (click)="scrollToTop()" [ngClass]="{'show': isBackToTopVisible}">
+    <img src="/assets/images/b2top.svg" alt="Back to top">
+  </div>
+
+    <!-- Arrow pointing to the help button -->
+    <div class="help-arrow" *ngIf="showHelpArrow">
+      <span>Have questions? Click here!</span>
+    </div>
+  
+
+  <button class="chatbot-button" (click)="toggleChatbot()">
+    <img src="/assets/images/question-mark.svg" class="question-icon"> help 
+  </button>
+  
+  <div class="chatbot" [ngClass]="{'show': isChatbotVisible}">
+    <div class="chatbot-header">
+      <button class="close-button" (click)="toggleChatbot()">
+        <img src="/assets/images/close.svg">
+      </button>
+    </div>
+    <h3 *ngIf="!isContactFormVisible">Hi! How can I help you?</h3>
+    <!-- Chatbot Body before Contact Form -->
+    <div class="chatbot-body" #chatbotBody *ngIf="!isContactFormVisible">
+      <div class="chat-messages">
+
+        <div *ngFor="let message of chatHistory" 
+        [ngClass]="{'user-message': message.type === 'user', 'bot-message': message.type === 'bot'}">
+          {{ message.text }}
+        </div>
+        
+        <div class="bot-message1" *ngIf="showFaqButtons">
+          <p class="got-q">Got Questions?</p>
+          <button class="faq" *ngFor="let faq of displayedFaqs" (click)="selectAnswer(faq)">
+            {{ faq.question }}
+          </button>
+          <button class="faq-extra-btns" (click)="showSearchBar()">Other Questions</button>
+          <button class="faq-extra-btns" (click)="showRandomQuestions()">Randomize Questions</button>
+        </div>
+        
+        <div class="search-container" *ngIf="isSearchActive">
+          <input type="text" [(ngModel)]="searchQuery" (input)="filterFAQs()" placeholder="Type your question..." />
+          <div class="search-results">
+            <button class="faq" *ngFor="let result of filteredFaqs" (click)="selectAnswer(result)">
+              {{ result.question }}
+            </button>
+            <p *ngIf="filteredFaqs.length === 0">Didn't find an answer? <a (click)="toggleContactForm()">Contact us</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chatbot-contact" *ngIf="!isContactFormVisible">
+      <h4>Didn't find an answer?</h4>
+      <button class="chatbot-contact-btn" (click)="toggleContactForm()">
+        <span>Contact Us</span>
+        <img src="/assets/images/right-arrow.svg">
+      </button>
+    </div>
+
+
+    <!-- Contact Form Body -->
+    <div class="chatbot-body2" *ngIf="isContactFormVisible">
+      <button class="back-button" (click)="toggleContactForm()">
+        <img src="/assets/images/right-arrow.svg">back </button>
+      <h5>Contact Us</h5>
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmitContactForm()">
+        <label for="name">Name</label>
+        <input type="text" id="name" formControlName="name" placeholder="Enter Name" required>
+        <label for="contactnumber">Contact Number</label>
+        <input type="text" id="contactnumber" formControlName="contactnumber" placeholder="Enter Contact Number" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" placeholder="Enter Email" required>
+        <label for="message">Message</label>
+        <textarea id="message" formControlName="message" placeholder="Enter Message" required></textarea>
+        <button type="submit" [disabled]="!contactForm.valid || isSubmitting">
+          <span *ngIf="isSubmitting">Sending...</span>
+          <span *ngIf="!isSubmitting">Submit</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+
+
+
+  
+  <div class="content">
+    <section id="section1"></section>
+    <section class="intro">
+      <p>Holy Angel University (HAU) is a well-known Catholic Institution in Angeles City, established by Don Juan D. Nepomuceno and Fr. Pedro P. Santos in 1933. The university offers on-campus accommodations to support student's academic and personal development.</p>
+    </section>
+    <section id="section2">
+      <div class="content-item">
+        <img src="/assets/images/martha.png" alt="St. Martha Hall">
+        <div>
+          <h2>St. Martha Hall</h2>
+          <br>
+          <p>St. Martha Hall is a dormitory dedicated in accomodating female students at HAU. It is named after Saint Martha, the patroness of servants and cooks, the hall encompasses values of hospitality and service. The dormitory provides a secure and nurturing environment, featuring well-maintained rooms and essential amenities to ensure a comfortable living experience. Its strategic location within the campus grants residents convenient access to academic buildings, libraries, and other facilities, fostering a balanced university life.</p>
+        </div>
+      </div>
+      <div class="content-item content-item-reverse">
+        <div>
+          <h2>Plaza de Corazon</h2>
+          <br>
+          <p>Plaza de Corazon is the designated dormitory for male students at HAU. The facility offers a supportive living environment that promotes both academic excellence and personal growth. Residents benefit from comfortable accommodations and essential amenities designed to meet their daily needs. Situated within the university grounds, Plaza de Corazon provides easy access to various campus resources, enabling students to engage fully in academic and extracurricular activities.</p>
+        </div>
+        <img src="/assets/images/plaza.png" alt="Plaza de Corazon">
+      </div>
+    </section>
+    <section id="section3" class="amenities">
+      <h2 class="title">Amenities</h2>
+      <div class="amenities-list">
+        <div class="amenities-column">
+          <div class="amenity-item">
+            <img src="/assets/images/amenities/couch.svg" alt="Clean Residences">
+            <p>Clean Residences</p>
+          </div>
+          <div class="amenity-item">
+            <img src="/assets/images/amenities/aircon.svg" alt="Air-conditioned Rooms">
+            <p>Air-conditioned Rooms</p>
+          </div>
+          <div class="amenity-item">
+            <img src="/assets/images/amenities/bed.svg" alt="Comfortable Beds">
+            <p>Comfortable Beds</p>
+          </div>
+          <div class="amenity-item">
+            <img src="/assets/images/amenities/fridge.svg" alt="Refrigerator">
+            <p>Refrigerator</p>
+          </div>
+        </div>
+        <div class="amenities-column">
+          <div class="amenity-item">
+            <img src="/assets/images/amenities/chair.svg" alt="Study Tables">
+            <p>Study Tables</p>
+          </div>
+          <div class="amenity-item">
+            <img src="/assets/images/amenities/cctv.svg" alt="Security Cameras">
+            <p>24/7 Security Cameras</p>
+          </div>
+          <div class="amenity-item">
+            <img src="/assets/images/amenities/security.svg" alt="24-hour Security">
+            <p>24-hour Security</p>
+          </div>
+          <div class="amenity-item">
+            <img src="/assets/images/amenities/utensils.svg" alt="Cafeteria" style="scale:0.8;">
+            <p>Cafeteria</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="section4">
+      <div>
+        <img src="/assets/images/amenities/house.svg">
+        <h2>House Rules</h2>
+      </div>
+      <ul>
+        <li> No one is allowed to enter the dormitory building while under the influence of alcohol.</li>
+        <li> NO SMOKING/ VAPING in the dormitory building.</li>
+        <li> No cooking inside the rooms of the dormitory.</li>
+        <li> Wearing of hanging blouse, plunging necklines, backless blouse / shirt or dress and mini-skirt by female residents are not allowed in the corridor, lounge, and dorm premises.</li>
+        <li> Wearing of boxer shorts and "sando" or back shirts by male residents are not allowed in the corridor, lounge, and dorm premises.</li>
+        <li> Residents must maintain cleanliness in their respective rooms.</li>
+        <li> Flammable materials are not allowed inside the dormitory.</li>
+        <li> Visitors are allowed to stay only at the reception area located at the lobby from 8:00 AM until 10:00 PM.</li>
+        <li> Non-residents are not allowed to hang around within the dorm premises. Likewise, non-residents are not allowed to conduct extra- curricular activities such as school projects, dance rehearsals, and the like with classmates residing in the dorm.</li>
+        <li> Residents may use sound systems, musical instruments, television sets, etc., with consideration for the rights of others.</li>
+      </ul>
+    </section>
+
+
+
+    <section id="section5">
+      <div *ngIf="loading" class="loading-spinner">
+        <p>Loading...</p>
+      </div>
+
+      <div *ngIf="!loading">
+        <img *ngIf="bookingStatus === 'Booking is currently closed'" src="/assets/images/amenities/lock.svg" alt="Lock Icon">
+        <!-- Only show lock icon if not locked -->
+        <h2>{{ bookingStatus }}</h2>
+
+        <p>Booking for St. Martha Hall and Plaza de Corazon may open or close depending on availability. Stay informed by checking for updates regularly.</p>
+        <button *ngIf="bookingStatus.includes('Booking is open')" class="apply-btn desktop-apply" (click)="navigateToStudentLogin()">Apply Here</button>
+        
+        <hr>
+        <h2>Slots Available</h2>
+      </div>
+
+      <div *ngIf="!loading" class="slots">
+        <div class="building">
+          <div class="name">St. Martha Hall</div>
+          <img src="/assets/images/female.svg" alt="Female Icon">
+          <div class="count">{{ femaleAvailableSlots }}</div>
+        </div>
+        <div class="building">
+          <div class="name">Plaza de Corazon</div>
+          <img src="/assets/images/male.svg" alt="Male Icon">
+          <div class="count">{{ maleAvailableSlots }}</div>
+        </div>
+      </div>
+
+    </section>
+
+
+
+    <section id="section6">
+      <div class="container">
+        <h2>Get In Touch</h2>
+        <div class="content">
+          <div class="contact-info">
+            <h3>Contact:</h3>
+            <p>For inquiries about St. Martha Hall and Plaza de Corazon at Holy Angel University, you can reach out through the following:</p>
+            <ul>
+              <li>
+                <img src="/assets/images/email.svg" alt="Email Icon">
+                <span>mramos.hau.edu.ph</span>
+              </li>
+              <li>
+                <img src="/assets/images/call.svg" alt="Phone Icon">
+                <span>0920-2717-025</span>
+              </li>
+              <li>
+                <img src="/assets/images/location.svg" alt="Location Icon">
+                <span>#1 Holy Angel Avenue, Sto. Rosario, Angeles City</span>
+              </li>
+            </ul>
+          </div>
+          <div class="image-container">
+            <img src="/assets/images/dorm-building.svg" alt="Building Image">
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="footer-container">
+        <div class="logo-container">
+          <img src="/assets/images/hau-logo.png" alt="Logo">
+        </div>
+        <div class="footer-text">
+          <p>If you are an admin, please access the admin login page by visiting <a href="/admin-login">
+              <strong>admin-login</strong>
+            </a>. </p>
+        </div>
+      </div>
+    </footer>
+  </div>

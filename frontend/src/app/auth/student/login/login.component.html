@@ -1,0 +1,36 @@
+<body>
+  <div class="login-container">
+    <div class="back" (click)="goBack()">
+      <i class="bi bi-arrow-left-circle-fill" ></i>
+      <p>BACK</p>
+    </div>
+    <h2>STUDENT LOGIN</h2>
+    <form (ngSubmit)="login()">
+      <div>
+        <label for="email">EMAIL</label>
+        <input
+          id="email"
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          required
+        />
+      </div>
+      <div>
+        <label for="password">PASSWORD</label>
+        <input
+          id="password"
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+      </div>
+      <button type="submit">Login</button>
+    </form>
+    <strong><a href="student-register" class="fs-6">Register</a></strong>
+    <a routerLink="/forgot-password" class="fs-7">Forgot Password?</a>
+    <p *ngIf="errorMessage" style="color: red;" class="fs-6 ">{{ errorMessage }}</p>
+  </div>
+</body>
+
